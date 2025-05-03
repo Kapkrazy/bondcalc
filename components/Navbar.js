@@ -1,50 +1,76 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleMenuToggle = () => {
-    if (menuOpen) {
-      setMenuOpen(false);
-    } else {
-      setMenuOpen(true);
-    }
-  };
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <nav className="shadow-md px-4 py-3 flex justify-between items-center text-white bg-green-700">
-      <div className="text-xl font-bold "><Link href='/'>BondCalc</Link></div>
-      <div
-        className={`absolute top-0 left-0 w-full bg-green-700 text-white transition-transform duration-300 ${
-          menuOpen ? "transform translate-y-0" : "transform -translate-y-full"
-        } md:hidden`}
-      >
-        <ul className="flex flex-col items-center space-y-4 p-4 md:space-y-0 md:flex-row md:space-x-4 md:p-0"> 
-          <li className="hover:text-blue-600 cursor-pointer">
-            <Link href="/" onClick={handleMenuToggle}>
+    <nav className="bg-green-700 text-white px-4 py-3 shadow-md">
+      <div className="flex justify-between items-center">
+        <div className="text-xl font-bold">
+          <Link href="/">BondCalc</Link>
+        </div>
+
+        {/* Desktop menu */}
+        <ul className="hidden md:flex space-x-6">
+          <li>
+            <Link href="/" className="hover:text-blue-300">
               Home
             </Link>
           </li>
-          <li className="hover:text-blue-600 cursor-pointer">
-            <Link href="/calculator" onClick={handleMenuToggle}>
+          <li>
+            <Link href="/calculator" className="hover:text-blue-300">
               Calculator
             </Link>
           </li>
-          <li className="hover:text-blue-600 cursor-pointer">
-            <Link href="/about" onClick={handleMenuToggle}>
+          <li>
+            <Link href="/about" className="hover:text-blue-300">
               About
             </Link>
           </li>
         </ul>
+
+        {/* Mobile button */}
+        <button
+          className="md:hidden text-2xl focus:outline-none"
+          onClick={toggleMenu}
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
       </div>
 
-      <button className="md:hidden text-white z-10" onClick={handleMenuToggle}>
-        {/* Mobile menu icon (could be replaced with an actual icon later) */}
-        {menuOpen ? "X" : "☰"}
-      </button>
+      {/* Mobile menu */}
+      {menuOpen && (
+        <ul className="md:hidden mt-4 flex flex-col space-y-4">
+          <li>
+            <Link href="/" onClick={closeMenu} className="hover:text-blue-300">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/calculator"
+              onClick={closeMenu}
+              className="hover:text-blue-300"
+            >
+              Calculator
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/about"
+              onClick={closeMenu}
+              className="hover:text-blue-300"
+            >
+              About
+            </Link>
+          </li>
+        </ul>
+      )}
     </nav>
   );
 }
