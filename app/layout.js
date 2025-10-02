@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { GoogleTagManager } from '@next/third-parties/google';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,6 +27,8 @@ export default function RootLayout({ children }) {
       >
         <Navbar />
         {children}
+        <GoogleTagManager gtmId="G-R1VR4G3HNL" />
+
       </body>
     </html>
   );
