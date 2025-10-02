@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
       >
         <Navbar />
         {children}
-        <GoogleTagManager gtmId="G-R1VR4G3HNL" />
+        <GoogleTagManager gtmId="GTM-PS6R5JFJ" />
 
       </body>
     </html>
